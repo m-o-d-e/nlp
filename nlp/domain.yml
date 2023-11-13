@@ -1,0 +1,63 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_write_java_code:
+    - text: "Sure, here's a simple 'Hello' code in Java:\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n```"
+
+  utter_ask_temperature:
+    - text: "I'm sorry, I don't know the current temperature."
+
+  utter_ask_forecast:
+    - text: "I'm sorry, I don't have the weather forecast at the moment."
+
+  utter_ask_weather:
+    - text: "The weather is..."
+
+actions:
+  - utter_greet
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_goodbye
+  - utter_iamabot
+  - utter_write_java_code
+  - utter_ask_temperature
+  - utter_ask_forecast
+  - utter_ask_weather
+
+slots:
+  name:
+    type: text  # or any other appropriate type for your use case
+    mappings:  # add mappings for the slot
+      - type: from_text
+
+entities:
+  - person

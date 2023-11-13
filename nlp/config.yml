@@ -1,0 +1,72 @@
+recipe: default.v1
+
+intents:
+  - greet
+  - goodbye
+  - ask_weather
+  - write_java_code
+  - ask_name
+  - ask_temperature
+  - ask_forecast
+
+responses:
+  utter_write_java_code:
+    - text: "Sure, here's a simple 'Hello' code in Java:\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n```"
+
+  utter_ask_temperature:
+    - text: "I'm sorry, I don't know the current temperature."
+
+  utter_ask_forecast:
+    - text: "I'm sorry, I don't have the weather forecast at the moment."
+
+slots:
+  - name
+
+entities:
+  - person
+
+actions:
+  - utter_greet
+  - utter_ask_name
+  - utter_farewell
+
+# The assistant project unique identifier
+# This default value must be replaced with a unique assistant name within your deployment
+assistant_id: 20231112-003710-excited-joist
+
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: en
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
+    constrain_similarities: true
+  - name: FallbackClassifier
+    threshold: 0.3
+    ambiguity_threshold: 0.1
+
+# Configuration for Rasa Core.
+# https://rasa.com/docs/rasa/core/policies/
+policies:
+  - name: MemoizationPolicy
+  - name: RulePolicy
+  - name: UnexpecTEDIntentPolicy
+    max_history: 5
+    epochs: 100
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
